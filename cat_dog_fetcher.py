@@ -1,6 +1,6 @@
 #This file fetches cat and dog image dataset
 #Begin by downloading the dataset from Google to local drive
-
+#
 #!wget --no-check-certificate \
 #    https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip \
 #    -O /tmp/cats_and_dogs_filtered.zip
