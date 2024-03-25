@@ -115,5 +115,8 @@ model = tf.keras.models.Model(base_model.input, x)
 model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary_crossentropy',metrics = ['acc'])
 
 #Fit the model
-vgghist = model.fit(train_generator, validation_data = validation_generator, steps_per_epoch = 100, epochs = 10)
+vgghist = model.fit(train_generator, validation_data = validation_generator, steps_per_epoch = 100, epochs = 2)
 
+model.save('cat_dog_model.h5')
+
+print(model.summary())
