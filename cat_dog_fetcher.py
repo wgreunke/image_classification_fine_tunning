@@ -1,9 +1,9 @@
 #This file fetches cat and dog image dataset
 #Begin by downloading the dataset from Google to local drive
 
-!wget --no-check-certificate \
-    https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip \
-    -O /tmp/cats_and_dogs_filtered.zip
+#!wget --no-check-certificate \
+#    https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip \
+#    -O /tmp/cats_and_dogs_filtered.zip
 
 local_zip = '/tmp/cats_and_dogs_filtered.zip'
 zip_ref = zipfile.ZipFile(local_zip, 'r')
