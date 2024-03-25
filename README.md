@@ -5,7 +5,6 @@ Ward Greunke
 This repositroy covers the fine tunning of image classification models by starting with a base model and then updating some of the layers.
 
 Steps
-/*:
 1. Choose a pre-made model as a base model
 2. Obtain your images that you want to clasify
 3.   Format images
@@ -14,7 +13,7 @@ Steps
 6. Compile the model
 7. Fit the model
 8. Test the model
-9. */
+
 
 
 
