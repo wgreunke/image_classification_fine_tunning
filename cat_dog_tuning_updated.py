@@ -8,6 +8,7 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator 
 from tensorflow.keras import layers 
 from tensorflow.keras import Model 
+import sys
 
 print("")
 print("")
@@ -54,6 +55,8 @@ for images, labels in train_ds.take(1):
     plt.axis("off")
 
 
+
+
 #Normalize the images to 0,1 instead of 0,255
 normalization_layer=layers.Rescaling(1./255)
 train_norm=train_ds.map(lambda x,y:(normalization_layer(x),y))
@@ -62,6 +65,17 @@ vald_norm=val_ds.map(lambda x,y:(normalization_layer(x),y))
 #first_image=image_batch[0]
 #print(np.min(first_image),np.max(first_image))
 
+
+data_augmentation = tf.keras.Sequential(
+  [
+    layers.RandomFlip("horizontal",
+                      input_shape=(img_height,
+                                  img_width,
+                                  3)),
+    layers.RandomRotation(0.1),
+    layers.RandomZoom(0.1),
+  ]
+)
 
 
 #********************* Building the Model **********************

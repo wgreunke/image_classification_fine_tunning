@@ -117,6 +117,6 @@ model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary
 #Fit the model
 vgghist = model.fit(train_generator, validation_data = validation_generator, steps_per_epoch = 100, epochs = 2)
 
-model.save('cat_dog_model.h5')
+model.save('cat_dog_model.keras')
 
 print(model.summary())

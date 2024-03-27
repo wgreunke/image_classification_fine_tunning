@@ -3,9 +3,21 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import image_dataset_from_directory
 from tensorflow.keras.layers import Rescaling
 
+print("")
+print("")
+print("*************")
+
+#Look at the summary of the core model
+image_dim=244
+from tensorflow.keras.applications.vgg16 import VGG16
+base_model = VGG16(input_shape = (image_dim, image_dim, 3), include_top = False, weights = 'imagenet')                  
+
+print("VGG16 Summary")
+print(base_model.summary())
+
 # Load the pre-trained model
 model = load_model('models/updated.keras')
-print(model.summary)
+print(model.summary())
 
 # Load a single image using image_dataset_from_directory
 # Assuming the image is in a directory named 'single_image_dir' and has a size of (224, 224)
