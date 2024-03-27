@@ -8,6 +8,7 @@ from tensorflow.keras import layers
 from tensorflow.keras import Model 
 
 image_dir="images"
+#sfd
 
 base_dir = 'images\cats_and_dogs_filtered'
 train_dir = os.path.join(base_dir, 'train')
