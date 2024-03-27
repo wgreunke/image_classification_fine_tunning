@@ -9,24 +9,33 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras import layers 
 from tensorflow.keras import Model 
 
+print("")
+print("")
+print("*************")
+
 image_dir="images"
 
 base_dir = 'images\cats_and_dogs_filtered'
 train_dir = os.path.join(base_dir, 'train')
 validation_dir=os.path.join(base_dir,"validation")
 
-image_dim=180
+image_dim=224
 
 #Load test images
 train_ds=tf.keras.utils.image_dataset_from_directory(
-  "test",labels="inferred", image_size=(255,255),validation_split=.2, subset="training" batch_size=30) 
-dir_class_names=train_ds.class_names
-print("Class names from directorys")
-print(dir_class_names)
+   train_dir,
+   labels="inferred", 
+   image_size=(255,255),
+   validation_split=.2, 
+   seed=123,
+   subset="training", batch_size=30) 
+
+train_class_names=train_ds.class_names
+print(train_class_names)
 
 
 val_ds=tf.keras.utils.image_dataset_from_directory(
-  data_dir,
+  validation_dir,
   validation_split=.2,
   subset="validation",
   seed=123,
@@ -34,18 +43,19 @@ val_ds=tf.keras.utils.image_dataset_from_directory(
   batch_size=30
 )
 
+
 #Show an image to be sure you have loaded it correctly
 plt.figure(figsize=(10,10))
 for images, labels in train_ds.take(1):
   for i in range(9):
     ax = plt.subplot(3, 3, i + 1)
     plt.imshow(images[i].numpy().astype("uint8"))
-    plt.title(class_names[labels[i]])
+    plt.title(train_class_names[labels[i]])
     plt.axis("off")
 
 
 #Normalize the images to 0,1 instead of 0,255
-normalization_layer=layers.rescaling(1./255)
+normalization_layer=layers.Rescaling(1./255)
 train_norm=train_ds.map(lambda x,y:(normalization_layer(x),y))
 vald_norm=val_ds.map(lambda x,y:(normalization_layer(x),y))
 #image_batch,labels_batch=next(iter(normalized_ds))
@@ -89,6 +99,6 @@ model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary
 print(model.summary)
 
 #Fit the model
-model.fit(train_ds,validation_data=val_ds, epochs=2)
+model.fit(train_norm,validation_data=vald_norm, epochs=2)
 
 model.save('models/updated.keras')
