@@ -25,7 +25,7 @@ image_dim=224
 train_ds=tf.keras.utils.image_dataset_from_directory(
    train_dir,
    labels="inferred", 
-   image_size=(255,255),
+   image_size=(image_dim,image_dim),
    validation_split=.2, 
    seed=123,
    subset="training", batch_size=30) 
