@@ -1,7 +1,6 @@
 #This file does the same as cat_dog_tuning but with updated tensorflow functions
 import os
 import matplotlib.pyplot as plt
-
 import numpy as np
 import tensorflow as tf 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator 
