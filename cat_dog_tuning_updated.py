@@ -66,16 +66,6 @@ vald_norm=val_ds.map(lambda x,y:(normalization_layer(x),y))
 #print(np.min(first_image),np.max(first_image))
 
 
-data_augmentation = tf.keras.Sequential(
-  [
-    layers.RandomFlip("horizontal",
-                      input_shape=(img_height,
-                                  img_width,
-                                  3)),
-    layers.RandomRotation(0.1),
-    layers.RandomZoom(0.1),
-  ]
-)
 
 
 #********************* Building the Model **********************
@@ -101,7 +91,10 @@ x = layers.Dense(512, activation='relu')(x)
 x = layers.Dropout(0.5)(x)
 
 # Add a final sigmoid layer with 1 node for classification output
-x = layers.Dense(1, activation='sigmoid')(x)
+#x = layers.Dense(1, activation='sigmoid')(x)
+num_classes=len(train_class_names)
+x=layers.Dense(num_classes,)(x)
+
 
 #New model consists of the base model and the additional layers you want to add.
 model = tf.keras.models.Model(inputs=base_model.input, outputs=x)
@@ -113,6 +106,6 @@ model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary
 print(model.summary)
 
 #Fit the model
-model.fit(train_norm,validation_data=vald_norm, epochs=2)
+model.fit(train_norm,validation_data=vald_norm, epochs=10)
 
 model.save('models/updated.keras')
