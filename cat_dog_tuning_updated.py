@@ -53,6 +53,7 @@ for images, labels in train_ds.take(1):
     plt.imshow(images[i].numpy().astype("uint8"))
     plt.title(train_class_names[labels[i]])
     plt.axis("off")
+plt.show()
 
 
 
@@ -100,12 +101,15 @@ x=layers.Dense(num_classes,)(x)
 model = tf.keras.models.Model(inputs=base_model.input, outputs=x)
 
 #Compile the model.
-model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary_crossentropy',metrics = ['acc'])
+#model.compile(optimizer = tf.keras.optimizers.RMSprop(lr=0.0001), loss = 'binary_crossentropy',metrics = ['acc'])
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
 
 
 print(model.summary)
 
 #Fit the model
-model.fit(train_norm,validation_data=vald_norm, epochs=10)
+model.fit(train_norm,validation_data=vald_norm, epochs=1)
 
 model.save('models/updated.keras')
